@@ -1,4 +1,4 @@
-package com.hojongs.todopresentation
+package com.hojongs
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication

@@ -1,4 +1,4 @@
-package com.hojongs.todopresentation
+package com.hojongs
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

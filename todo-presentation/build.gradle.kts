@@ -5,6 +5,7 @@ plugins {
 }
 
 dependencies {
+	implementation(project(":todo-service"))
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")

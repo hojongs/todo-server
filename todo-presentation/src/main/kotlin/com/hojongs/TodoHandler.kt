@@ -1,4 +1,4 @@
-package com.hojongs.todopresentation
+package com.hojongs
 
 import org.springframework.http.MediaType
 import org.springframework.stereotype.Component

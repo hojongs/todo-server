@@ -1,4 +1,4 @@
-package com.hojongs.todopresentation
+package com.hojongs
 
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

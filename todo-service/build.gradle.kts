@@ -1,7 +1,3 @@
-repositories {
-    jcenter()
-}
-
 dependencies {
     implementation("org.jetbrains.exposed:exposed-core:0.20.1")
     implementation("org.jetbrains.exposed:exposed-dao:0.20.1")
