@@ -1,6 +1,0 @@
-[submodule "todo-presentation"]
-	path = todo-presentation
-	url = https://github.com/hojongs/todo-presentation
-[submodule "todo-service"]
-	path = todo-service
-	url = https://github.com/hojongs/todo-service
