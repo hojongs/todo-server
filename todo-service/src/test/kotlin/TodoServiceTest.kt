@@ -1,8 +1,12 @@
 import com.hojongs.Todos
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.BeforeAll
+import reactor.kotlin.core.publisher.toMono
+import reactor.test.StepVerifier
 
 class TodoServiceTest {
 
@@ -24,9 +28,14 @@ class TodoServiceTest {
                 it[name] = "Create git repo"
             } get Todos.id
 
-            Todos.selectAll().forEach {
-                println("todo.name: ${it[Todos.name]}")
-            }
+            assertEquals(
+                "Create git repo",
+                Todos.select { Todos.id eq todoId }.firstOrNull()?.get(Todos.name)
+            )
+
+            assertNull(
+                Todos.select { Todos.id neq todoId }.firstOrNull()
+            )
 
             SchemaUtils.drop(Todos)
         }
