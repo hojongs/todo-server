@@ -6,7 +6,7 @@ import org.springframework.http.MediaType
 import org.springframework.web.reactive.function.server.coRouter
 
 @Configuration
-class TodoConfiguration {
+class TodoRouter {
 
     @Bean
     fun router(handler: TodoHandler) = coRouter {
