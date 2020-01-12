@@ -12,6 +12,9 @@ class TodoRouter {
     fun router(handler: TodoHandler) = coRouter {
         accept(MediaType.APPLICATION_JSON).nest {
             GET("/hello", handler::hello)
+            GET("/todos", handler::listTodo)
+            POST("/todos", handler::insertTodo) // body
+            PUT("/todos/{id}", handler::updateTodo) // body
         }
     }
 }

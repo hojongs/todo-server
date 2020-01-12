@@ -1,3 +1,4 @@
+import com.hojongs.Todo
 import com.hojongs.Todos
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
@@ -9,6 +10,8 @@ import org.jetbrains.exposed.sql.transactions.transaction
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.BeforeEach
+
 import org.junit.jupiter.api.Test
 
 class TodoServiceTest {
@@ -16,17 +19,30 @@ class TodoServiceTest {
     companion object {
         @BeforeAll
         @JvmStatic
-        internal fun before() {
-            Database.connect("jdbc:h2:mem:test", "org.h2.Driver")
+        fun connect() {
+            Database.connect("jdbc:h2:mem:regular;DB_CLOSE_DELAY=-1;", "org.h2.Driver")
+        }
+
+        fun <T> transactionWithLogger(statement: () -> T) {
+            return transaction {
+                addLogger(StdOutSqlLogger)
+
+                statement()
+            }
+        }
+    }
+
+    @BeforeEach
+    fun resetSchema() {
+        transactionWithLogger {
+            SchemaUtils.drop(Todos)
+            SchemaUtils.create(Todos)
         }
     }
 
     @Test
     fun testTodo() {
-        transaction {
-            addLogger(StdOutSqlLogger)
-            SchemaUtils.create(Todos)
-
+        transactionWithLogger {
             val todoId = Todos.insert {
                 it[name] = "Create git repo"
             } get Todos.id
@@ -39,8 +55,16 @@ class TodoServiceTest {
             assertNull(
                 Todos.select { Todos.id neq todoId }.firstOrNull()
             )
+        }
+    }
 
-            SchemaUtils.drop(Todos)
+    @Test fun testDAO() {
+        transactionWithLogger {
+            val todo = Todo.new {
+                name = "Create git repo"
+            }
+
+            assertEquals(todo, Todo[todo.id])
         }
     }
 }
