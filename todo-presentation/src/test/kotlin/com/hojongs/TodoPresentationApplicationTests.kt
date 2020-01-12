@@ -11,18 +11,18 @@ import org.springframework.test.web.reactive.server.WebTestClient
 @AutoConfigureWebTestClient
 class TodoPresentationApplicationTests {
 
-	@Autowired
-	private lateinit var client: WebTestClient
+    @Autowired
+    private lateinit var client: WebTestClient
 
-	@Test
-	fun testHello() {
-		client.get()
-			.uri("/hello")
-			.accept(MediaType.APPLICATION_JSON)
-			.exchange()
-			.expectStatus().isOk
-			.expectBody()
-			.jsonPath("$.message")
-			.isEqualTo("hello")
-	}
+    @Test
+    fun testHello() {
+        client.get()
+            .uri("/hello")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isOk
+            .expectBody()
+            .jsonPath("$.message")
+            .isEqualTo("hello")
+    }
 }
